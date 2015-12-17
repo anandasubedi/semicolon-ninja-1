@@ -39,6 +39,6 @@ public class ReviewController {
 		// System.out.println(review.getId());
 		 //To Do : Add authenticated user to review  
 		 reviewService.addReview(review);
-		 return "redirect:/movie/"+review.getMovie().getId();
+		 return "redirect:/movies/view/"+review.getMovie().getId();
 	}
 }

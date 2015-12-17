@@ -47,4 +47,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.findOne(id);
 	}
 
+	@Override
+	public List<Member> getAllMembers() {
+		return (List<Member>) memberRepository.findAll();
+	}
+
 }

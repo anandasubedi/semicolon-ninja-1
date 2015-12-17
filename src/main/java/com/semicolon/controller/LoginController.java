@@ -26,10 +26,10 @@ public class LoginController {
 		 * return "redirect:/login";
 		 */
 		if (request.isUserInRole(UserRole.ROLE_ADMIN.toString()))
-			return "redirect:/admin/dashboard";
+			return "redirect:/movies";
 
 		if (request.isUserInRole(UserRole.ROLE_USER.toString()))
-			return "redirect:/user/dashboard";
+			return "redirect:/dashboard";
 
 		return "redirect:/login";
 	}

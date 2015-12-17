@@ -1,10 +1,13 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<form:form commandName="newUser" action="addUser" method="POST">
+<form:form commandName="newUser" action="addUser" method="POST" id="form-registration">
 
 	<h3><legend>Sign Up</legend></h3>
+	
+	<form:errors path="*" cssClass="error" />
 	<fieldset style="border-radius: 8px;">
+		
 		
 
 		<label for="firstName"><spring:message code="user.name"
@@ -31,7 +34,9 @@
 		<p>
 			<label for="username">Username</label>
 			<form:input id="username" path="username" />
+			<input type="button" id="checkValidity" value="check validity">
 		<div style="text-align: center;">
+			<span id="errors"></span>
 			<form:errors path="username" cssStyle="color : red;" />
 		</div>
 		</p>

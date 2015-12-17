@@ -3,20 +3,16 @@ package com.semicolon.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name="users")
 public class User {
@@ -25,34 +21,22 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@NotEmpty
-	@Size(min=5, max =20, message="Size must be between 5 and 20 characters")
 	private String firstName;
-	
-	@NotEmpty
 	private String lastName;
-	
-	@Email
 	private String email;
-	
-	@NotEmpty
 	private String username;
-	
-	@Size(min=3, max =6, message="Size must be between 3 and 6 characters")
 	private String password;
 	private int enabled;
+	
+//	@ManyToMany(cascade = {CascadeType.ALL})
+//    @JoinTable(name="user_movies", 
+//                joinColumns={@JoinColumn(name="user_id")}, 
+//                inverseJoinColumns={@JoinColumn(name="movie_id")})
+//    private Set<Movie> watchlist = new HashSet<Movie>();
 
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
 
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(
-	        name="user_watchlist",
-	        joinColumns=@JoinColumn(name="user_id"),
-	        inverseJoinColumns=@JoinColumn(name="movie_id")
-	    )
-	private Set<Movie> watchList = new HashSet<Movie>();
-	
 	public User() {
 
 	}
@@ -122,18 +106,32 @@ public class User {
 	}
 
 	/**
-	 * @return the watchList
+	 * @return the watchlist
 	 */
-	public Set<Movie> getWatchList() {
-		return watchList;
+//	public Set<Movie> getWatchlist() {
+//		return watchlist;
+//	}
+//
+//	/**
+//	 * @param watchlist the watchlist to set
+//	 */
+//	public void setWatchlist(Set<Movie> watchlist) {
+//		this.watchlist = watchlist;
+//	}
+
+	/**
+	 * @return the userRole
+	 */
+	public UserRole getUserRole() {
+		return userRole;
 	}
 
 	/**
-	 * @param watchList the watchList to set
+	 * @param userRole the userRole to set
 	 */
-	public void setWatchList(Set<Movie> watchList) {
-		this.watchList = watchList;
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
-	
+
 	
 }

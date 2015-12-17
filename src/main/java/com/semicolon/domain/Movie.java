@@ -1,6 +1,7 @@
 package com.semicolon.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.util.WeakReferenceMonitor.ReleaseListener;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity(name="movie")
@@ -27,8 +30,10 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@NotEmpty
 	private String name;
 	
+	@NotEmpty
 	private String description;
 	
 	@Transient
@@ -36,9 +41,11 @@ public class Movie {
 	
 	private String imagePath;
 	
-	@ManyToMany(cascade = CascadeType.ALL )
-	@JoinTable(name="movie_genre")
-	private List<Genre> genres;
+	private Date releaseDate;
+	
+//	@ManyToMany(cascade = CascadeType.ALL )
+//	@JoinTable(name="movie_genre")
+//	private List<Genre> genres;
 	
 	@OneToOne
 	@JoinColumn(name="director")
@@ -48,7 +55,7 @@ public class Movie {
 	@JoinColumn(name="producer")
 	private Member producer;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(
 	        name="movie_members",
 	        joinColumns=@JoinColumn(name="movie_id"),
@@ -126,13 +133,13 @@ public class Movie {
 		this.banner = banner;
 	}
 
-	public List<Genre> getGenres() {
-		return genres;
-	}
-
-	public void setGenres(List<Genre> genres) {
-		this.genres = genres;
-	}
+//	public List<Genre> getGenres() {
+//		return genres;
+//	}
+//
+//	public void setGenres(List<Genre> genres) {
+//		this.genres = genres;
+//	}
 
 	public List<Review> getReviews() {
 		return reviews;
@@ -141,5 +148,19 @@ public class Movie {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-	
+
+	/**
+	 * @return the releaseDate
+	 */
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	/**
+	 * @param releaseDate the releaseDate to set
+	 */
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
 }

@@ -3,16 +3,21 @@ package com.semicolon.controller;
 import java.io.File;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.semicolon.domain.Member;
@@ -31,7 +36,7 @@ public class MovieController {
 	@Autowired
 	MemberService memberService;
 	
-	@RequestMapping(value="/movies")
+	@RequestMapping(value={"/movies","/"})
 	public String addMovies(Model model){
 		
 		List<Movie> movies = movieService.geAllMovies();
@@ -52,9 +57,21 @@ public class MovieController {
 		model.addAttribute("stars",stars);
 		return "movie/addMovie";
 	}
+	
+	
 	@RequestMapping(value="movies/add", method=RequestMethod.POST)
-	public String addMovie(@ModelAttribute("movie") Movie movie, RedirectAttributes redirectAttribute, HttpServletRequest request){
+	public String addMovie(@Valid @ModelAttribute("movie") Movie movie,BindingResult result, RedirectAttributes redirectAttribute, HttpServletRequest request,Model model){
 		
+		if(result.hasErrors()){
+			List<Member> directors =  memberService.getAllDirectors();
+			List<Member> producers = memberService.getAllProducers();
+			List<Member> stars = memberService.getAllStars();
+			
+			model.addAttribute("directors",directors);
+			model.addAttribute("producers",producers);
+			model.addAttribute("stars",stars);
+			return "movie/addMovie";
+		}
 		Member director = memberService.getMemberById(movie.getDirector().getId());
 		Member producer = memberService.getMemberById(movie.getProducer().getId());
 		
@@ -76,10 +93,13 @@ public class MovieController {
 		return "movie/movieDetails";
 	}
 	
-	@RequestMapping(value="movie/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="movies/view/{id}", method=RequestMethod.GET)
 	public String viewMovieDetails(@ModelAttribute("review") Review review,@PathVariable("id") Long id,Model model){
 		
 		Movie movie = movieService.getMovieById(id);
+		if(movie==null){
+			throw new MovieNotFoundException(id);
+		}
 		model.addAttribute("movie",movie);
 		//System.out.println(movie.getReviews().size());
 		return "movie/details";
@@ -96,9 +116,17 @@ public class MovieController {
 			  banner.transferTo(new File(imagePath));
 			  movie.setImagePath(imageName);
 		  } catch (Exception e) {
-		  throw new RuntimeException("Product Image saving failed", e);
+		  throw new RuntimeException("Movie banner image saving failed", e);
 		  }
 		}
 		return movie;
+	}
+	
+	@ExceptionHandler(MovieNotFoundException.class)
+	public ModelAndView handleError(HttpServletRequest req,EntityNotFoundException exception, ModelAndView mav) {
+
+	    mav.addObject("exception", exception.getMessage());
+	    mav.setViewName("error/entityNotFound");
+	     return mav;
 	}
 }

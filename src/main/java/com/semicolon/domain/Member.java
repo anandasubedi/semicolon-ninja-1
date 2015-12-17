@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Member {
 	
@@ -18,8 +21,10 @@ public class Member {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@NotEmpty
 	private String firstName;
 	
+	@NotEmpty
 	private String lastName;
 	
 	@Enumerated(EnumType.STRING)
@@ -27,6 +32,7 @@ public class Member {
 	
 	private String description;
 	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date birthDate;
 	
 	@ManyToMany(mappedBy="stars")

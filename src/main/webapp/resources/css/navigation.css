@@ -72,6 +72,7 @@ li>img {
 .container {
 	margin: auto;
 	margin-top: 150px; 
+	margin-bottom: 50px; 
 	width : 80%;
 	border-radius: 20px;
 	overflow: hidden;

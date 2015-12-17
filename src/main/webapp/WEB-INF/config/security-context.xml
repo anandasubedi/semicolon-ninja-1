@@ -14,7 +14,9 @@
 
 		<security:form-login default-target-url="/success"
 			always-use-default-target="true" />
-			<security:csrf disabled="true"/>
+		<security:csrf disabled="true" />
+		<security:logout logout-success-url="/"
+			logout-url="/logout" />
 	</security:http>
 
 	<security:authentication-manager>

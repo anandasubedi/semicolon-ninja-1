@@ -11,4 +11,5 @@ public interface MemberService {
 	List<Member> getAllProducers();
 	public List<Member> getAllStars();
 	public Member getMemberById(Long id);
+	public List<Member> getAllMembers();
 }

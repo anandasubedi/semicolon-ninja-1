@@ -17,6 +17,68 @@
 		<put-attribute name="header" value="" />
 		<put-attribute name="body" value="/WEB-INF/jsp/welcome.jsp" />
 	</definition>
+	
+	<definition name="movie/moviesList" extends="baseLayout">
+		<put-attribute name="title" value="Movie List" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/movie/moviesList.jsp" />
+	</definition>
+	
+	<definition name="movie/addMovie" extends="baseLayout">
+		<put-attribute name="title" value="Add Movie" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/movie/addMovie.jsp" />
+	</definition>
+	
+	<definition name="movie/movieDetails" extends="baseLayout">
+		<put-attribute name="title" value="Movie Detail" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/movie/movieDetails.jsp" />
+	</definition>
+	
+	<definition name="movie/addReview" extends="baseLayout">
+		<put-attribute name="title" value="Add Movie Review" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/movie/addReview.jsp" />
+	</definition>
+	
+	<definition name="movie/details" extends="baseLayout">
+		<put-attribute name="title" value="Movie Details" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/movie/details.jsp" />
+	</definition>
+	
+	<definition name="member/addMember" extends="baseLayout">
+		<put-attribute name="title" value="Add a member" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/member/addMember.jsp" />
+	</definition>
+	
+	<definition name="member/memberDetails" extends="baseLayout">
+		<put-attribute name="title" value="Member Details" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/member/memberDetails.jsp" />
+	</definition>
+	
+	<definition name="member/membersList" extends="baseLayout">
+		<put-attribute name="title" value="Member List" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/member/membersList.jsp" />
+	</definition>
+	
+	<definition name="user/watchlist" extends="baseLayout">
+		<put-attribute name="title" value="Member List" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user/watchlist.jsp" />
+	</definition>
+	
+	<definition name="dashboard" extends="baseLayout">
+	<put-attribute name="menu" value="/WEB-INF/tiles/template/navigation1.jsp" />
+		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/jsp/dashboard.jsp" />
+	</definition>
+	
 	<definition name="signup" extends="baseLayout">
 		<put-attribute name="title" value="Sign Up" />
 		<put-attribute name="header" value="" />

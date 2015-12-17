@@ -21,8 +21,8 @@ public class Genre {
 
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="genres")
-	private Set<Movie> movies;
+//	@ManyToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="genres")
+//	private Set<Movie> movies;
 
 	public Long getId() {
 		return id;
